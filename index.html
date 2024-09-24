@@ -19,9 +19,47 @@
         <label for="fullName">Full Name: </label>
         <input type="text" id="fullName" name="fullName" placeholder="fullName">
         <div class="error" id="nameError"></div>
+
+        <label for="email">Email: </label>
+        <input type="email" id="email" name="email" placeholder="email">
+        <div class="error" id="emailError"></div>
+
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="password" placeholder="password">
+        <div class="error" id="passwordError"></div>
+
+        <label for="confirmPassword">confirm Password: </label>
+        <input type="confirmPassword" id="confirmPassword" name="confirmPassword" placeholder="confirmPassword">
+        <div class="error" id="confirmPasswordError"></div>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob">
+        <div class="error" id="dobError"></div>
+        
+        <div>
+            <input type="checkbox" id="terms" name="terms">
+            <label for="terms">I agree to the terms and conditions</label>
+        </div>
+        <div class="error" id="termsError"></div>
+
+
+        <button type="submit" id="registration">Register</button>
         
     </form>
 
+    <!-- Logn form -->
+     <form id="loginForm" class="form">
+        <h2>Login</h2>
+        <label for="loginEmail">Email: </label>
+        <input type="email" id="loginEmail" name="loginEmail" placeholder="email">
+        <div class="error" id="loginEmailError"></div>
+
+        <label for="loginPassword">Password: </label>
+        <input type="password" id="loginPassword" name="loginPassword" placeholder="password">
+        <div class="error" id="loginPasswordError"></div>
+
+        <button type="submit" id="loginBtn">Login</button>
+     </form>
 
     </div>
 
