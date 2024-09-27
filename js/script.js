@@ -1,122 +1,237 @@
-// Event Listener for Registration Form Submission
-document.getElementById('registrationForm').addEventListener('submit', function (event) {
-    event.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
+    const registrationForm = document.getElementById('registrationForm');
+    const loginForm = document.getElementById('loginForm');
+    const showLoginButton = document.getElementById('showLogin');
+    const showRegisterButton = document.getElementById('showRegister');
+    const registerButton = document.getElementById('registerButton');
 
-    // Get form values
-    const fullName = document.getElementById('fullName').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    const dob = document.getElementById('dob').value;
-    const termsChecked = document.getElementById('terms').checked;
+    const fullName = document.getElementById('fullName');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const dob = document.getElementById('dob');
+    const terms = document.getElementById('terms');
 
-    // Validation flags
-    let valid = true;
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
 
-    // Full Name Validation (at least 3 characters)
-    if (fullName.length < 3) {
-        document.getElementById('nameError').textContent = 'Full Name must be at least 3 characters long.';
-        valid = false;
-    } else {
-        document.getElementById('nameError').textContent = '';
+    showLoginButton.addEventListener('click', () => {
+        registrationForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+    });
+
+    showRegisterButton.addEventListener('click', () => {
+        loginForm.classList.add('hidden');
+        registrationForm.classList.remove('hidden');
+    });
+
+     // Registration form validation
+     registrationForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (validateRegistrationForm()) {
+            alert('Registration successful!');
+            registrationForm.reset();
+        }
+    });
+
+    // Login form validation
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (validateLoginForm()) {
+            alert('Login successful!');
+            loginForm.reset();
+        }
+    });
+
+      // Real-time validation
+      fullName.addEventListener('input', validateFullName);
+      email.addEventListener('input', validateEmail);
+      password.addEventListener('input', validatePassword);
+      confirmPassword.addEventListener('input', validateConfirmPassword);
+      dob.addEventListener('input', validateDOB);
+      terms.addEventListener('change', validateTerms);
+  
+      loginEmail.addEventListener('input', validateLoginEmail);
+      loginPassword.addEventListener('input', validateLoginPassword);
+
+        // Validation functions
+    function validateFullName() {
+        const fullNameValue = fullName.value.trim();
+        if (fullNameValue.length < 3) {
+            setError(fullName, 'Full name must be at least 3 characters long');
+            return false;
+        } else {
+            setSuccess(fullName);
+            return true;
+        }
     }
 
-    // Email Validation (valid format)
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        document.getElementById('emailError').textContent = 'Please enter a valid email address.';
-        valid = false;
-    } else {
-        document.getElementById('emailError').textContent = '';
+    function validateEmail() {
+        const emailValue = email.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailValue)) {
+            setError(email, 'Please enter a valid email address');
+            return false;
+        } else {
+            setSuccess(email);
+            return true;
+        }
     }
 
-    // Password Validation (at least 8 characters, 1 uppercase, 1 number, 1 special character)
-    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
-    if (!passwordPattern.test(password)) {
-        document.getElementById('passwordError').textContent = 'Password must be at least 8 characters, include one uppercase, one number, and one special character.';
-        valid = false;
-    } else {
-        document.getElementById('passwordError').textContent = '';
+    function validatePassword() {
+        const passwordValue = password.value.trim();
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!passwordRegex.test(passwordValue)) {
+            setError(password, 'Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character');
+            return false;
+        } else {
+            setSuccess(password);
+            updatePasswordStrength(passwordValue);
+            return true;
+        }
     }
 
-    // Confirm Password Validation (must match password)
-    if (password !== confirmPassword) {
-        document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
-        valid = false;
-    } else {
-        document.getElementById('confirmPasswordError').textContent = '';
+    function validateConfirmPassword() {
+        const confirmPasswordValue = confirmPassword.value.trim();
+        const passwordValue = password.value.trim();
+        if (confirmPasswordValue !== passwordValue) {
+            setError(confirmPassword, 'Passwords do not match');
+            return false;
+        } else {
+            setSuccess(confirmPassword);
+            return true;
+        }
     }
 
-    // Date of Birth Validation (must be 18 years or older)
-    const dobDate = new Date(dob);
-    const today = new Date();
-    const age = today.getFullYear() - dobDate.getFullYear();
-    if (age < 18 || (age === 18 && today < new Date(today.getFullYear(), dobDate.getMonth(), dobDate.getDate()))) {
-        document.getElementById('dobError').textContent = 'You must be at least 18 years old.';
-        valid = false;
-    } else {
-        document.getElementById('dobError').textContent = '';
+    function validateDOB() {
+        const dobValue = new Date(dob.value);
+        const today = new Date();
+        const age = today.getFullYear() - dobValue.getFullYear();
+        const monthDiff = today.getMonth() - dobValue.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobValue.getDate())) {
+            age--;
+        }
+        if (age < 18) {
+            setError(dob, 'You must be at least 18 years old');
+            return false;
+        } else {
+            setSuccess(dob);
+            return true;
+        }
     }
 
-    // Terms & Conditions Checkbox Validation
-    if (!termsChecked) {
-        document.getElementById('termsError').textContent = 'You must agree to the terms and conditions.';
-        valid = false;
-    } else {
-        document.getElementById('termsError').textContent = '';
+    function validateTerms() {
+        if (!terms.checked) {
+            setError(terms, 'You must agree to the terms and conditions');
+            return false;
+        } else {
+            setSuccess(terms);
+            return true;
+        }
     }
 
-    // Enable Submit if Valid
-    if (valid) {
-        alert('Registration successful!');
+    function validateLoginEmail() {
+        const loginEmailValue = loginEmail.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(loginEmailValue)) {
+            setError(loginEmail, 'Please enter a valid email address');
+            return false;
+        } else {
+            setSuccess(loginEmail);
+            return true;
+        }
+    }
+    
+    function validateLoginPassword() {
+        const loginPasswordValue = loginPassword.value.trim();
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!passwordRegex.test(loginPasswordValue)) {
+            setError(loginPassword, 'Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character');
+            return false;
+        } else {
+            setSuccess(loginPassword);
+            return true;
+        }
+    }
+
+     // Helper functions
+     function setError(input, message) {
+        const formGroup = input.parentElement;
+        const errorDisplay = formGroup.querySelector('.error');
+        errorDisplay.innerText = message;
+        formGroup.classList.add('error');
+        formGroup.classList.remove('success');
+        input.setAttribute('aria-invalid', 'true');
+        errorDisplay.setAttribute('role', 'alert');
+        updateRegisterButtonState();
+    }
+
+    function setSuccess(input) {
+        const formGroup = input.parentElement;
+        const errorDisplay = formGroup.querySelector('.error');
+        errorDisplay.innerText = '';
+        formGroup.classList.add('success');
+        formGroup.classList.remove('error');
+        updateRegisterButtonState();
+    }
+
+    function isValidEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    function isStrongPassword(password) {
+        const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return re.test(password);
+    }
+
+    function updatePasswordStrength(password) {
+        const strengthMeter = document.getElementById('passwordStrength');
+        const strengthText = ['Weak', 'Medium', 'Strong'];
+        const strengthColor = ['#ff4d4d', '#ffa64d', '#4CAF50'];
+        let strength = 0;
+
+        if (password.match(/[a-z]+/)) {
+            strength += 1;
+        }
+        if (password.match(/[A-Z]+/)) {
+            strength += 1;
+        }
+        if (password.match(/[0-9]+/)) {
+            strength += 1;
+        }
+        if (password.match(/[$@#&!]+/)) {
+            strength += 1;
+        }
+
+        strengthMeter.style.width = (strength / 4) * 100 + '%';
+        strengthMeter.style.backgroundColor = strengthColor[strength - 1];
+        strengthMeter.textContent = strengthText[strength - 1];
+    }
+
+    function updateRegisterButtonState() {
+        const isValid = validateFullName() && validateEmail() && validatePassword() && 
+                        validateConfirmPassword() && validateDOB() && validateTerms();
+        registerButton.disabled = !isValid;
+    }
+
+    function validateRegistrationForm() {
+        const isFullNameValid = validateFullName();
+        const isEmailValid = validateEmail();
+        const isPasswordValid = validatePassword();
+        const isConfirmPasswordValid = validateConfirmPassword();
+        const isDOBValid = validateDOB();
+        const isTermsValid = validateTerms();
+
+        return isFullNameValid && isEmailValid && isPasswordValid && 
+               isConfirmPasswordValid && isDOBValid && isTermsValid;
+    }
+
+    function validateLoginForm() {
+        const isLoginEmailValid = validateLoginEmail();
+        const isLoginPasswordValid = validateLoginPassword();
+
+        return isLoginEmailValid && isLoginPasswordValid;
     }
 });
 
-// Password Strength Meter (using zxcvbn.js)
-document.getElementById('password').addEventListener('input', function () {
-    const password = document.getElementById('password').value;
-    const result = zxcvbn(password);
-    const strengthMeter = document.getElementById('passwordStrength');
-
-    const strengthText = ['Weak', 'Fair', 'Good', 'Strong', 'Very Strong'];
-    strengthMeter.textContent = 'Password strength: ' + strengthText[result.score];
-});
-
-// Event Listener for Login Form Submission
-document.getElementById('loginForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    // Get form values
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-
-    // Email Validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        document.getElementById('loginEmailError').textContent = 'Please enter a valid email address.';
-        return;
-    } else {
-        document.getElementById('loginEmailError').textContent = '';
-    }
-
-    // Password Validation (should not be empty)
-    if (password.trim() === '') {
-        document.getElementById('loginPasswordError').textContent = 'Password cannot be empty.';
-        return;
-    } else {
-        document.getElementById('loginPasswordError').textContent = '';
-    }
-
-    alert('Login successful!');
-});
-
-// Toggle Between Registration and Login Forms
-document.getElementById('showRegisterLink').addEventListener('click', function () {
-    document.getElementById('registerForm').style.display = 'block';
-    document.getElementById('loginForm').style.display = 'none';
-});
-
-document.getElementById('showLoginLink').addEventListener('click', function () {
-    document.getElementById('registerForm').style.display = 'none';
-    document.getElementById('loginForm').style.display = 'block';
-});
