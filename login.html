@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    <!-- <link rel="stylesheet" href="/css/styles.css"> -->
+</head>
+<body>
+
+     <div class="form-section"> <!-- Changed id to class -->
+        <form id="loginForm">
+            <div>
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" name="loginEmail" required>
+                <small class="error" id="loginEmailError"></small>
+            </div>
+            <div>
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" name="loginPassword" required>
+                <small class="error" id="loginPasswordError"></small>
+            </div>
+            <button type="submit" id="loginBtn">Login</button>
+        </form>
+        <div>
+            <span>Don't have an account?</span> <span> <a href="registration.html">Register here</a></span>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

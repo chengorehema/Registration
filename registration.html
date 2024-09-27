@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body, input, button {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+   
+</head>
+<body>
+
+    <div class="form-section"> <!-- Changed to class -->
+        <form id="registrationForm">
+            <div>
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" required>
+                <small class="error" id="nameError"></small>
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <small class="error" id="emailError"></small>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <small class="error" id="passwordError"></small>
+                <small id="passwordStrength"></small> <!-- Password strength feedback -->
+            </div>
+            <div>
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <small class="error" id="confirmPasswordError"></small>
+            </div>
+            <div>
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+                <small class="error" id="dobError"></small>
+            </div>
+            <div>
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the terms and conditions</label>
+                <small class="error" id="termsError"></small>
+            </div>
+            <button type="submit" id="registerBtn" disabled>Register</button>
+        </form>
+        <div>
+            <span>Already have an account?</span> <span> <a href="login.html">Login here</a></span>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
