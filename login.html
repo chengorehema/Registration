@@ -10,23 +10,33 @@
 </head>
 <body>
 
-     <div class="form-section"> <!-- Changed id to class -->
+     <div class="form-section"> 
+        <h2>Welcome Back</h2>
         <form id="loginForm">
             <div>
                 <label for="loginEmail">Email</label>
                 <input type="email" id="loginEmail" name="loginEmail" required>
                 <small class="error" id="loginEmailError"></small>
             </div>
+
             <div>
                 <label for="loginPassword">Password</label>
                 <input type="password" id="loginPassword" name="loginPassword" required>
                 <small class="error" id="loginPasswordError"></small>
             </div>
+
+            <div class="forgot-password">
+                <a href="#">Forgot password?</a>
+            </div>
+
             <button type="submit" id="loginBtn">Login</button>
+
         </form>
-        <div>
+
+        <div class="register-link">
             <span>Don't have an account?</span> <span> <a href="registration.html">Register here</a></span>
         </div>
+        
     </div>
 
     <script src="js/script.js"></script>
