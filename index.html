@@ -3,33 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body, input, button {
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
+    <title>Login Form</title>
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 430px;
+            background: #fff;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .container .form {
+            padding: 30px;
+        }
+
+        .container .form .title{
+            position: relative;
+            font-size: 27px;
+            font-weight: 600;
+        }
+
+        .form .title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 30px;
+            background-color: rgb(19, 88, 235);
+            border-radius: 25px;
+        }
+
+        .form .input-field {
+            position: relative;
+            height: 50px;
+            width: 100%;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            border: none;
+            outline: none;
+
+        }
+
+        .input-field input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 0 35px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            transition: all 0.2s ease;
+
+        }
+
+        .input-field input:is(:focus, :valid){
+            border-bottom-color: rgb(19, 88, 235);
+        }
+
+
+
+        .input-field i{
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+            transition: all 0.2s ease;
+
+        }
+
+        .input-field input:is(:focus, :valid) ~ i {
+            color: rgb(19, 88, 235);
+        }
+
+
+        .input-field i.showHidePw{
+            right: 0;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .form .checkbox-text{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .checkbox-text .checkbox-content{
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-content input{
+            margin: 0 8px -2px 4px;
+            accent-color: rgb(19, 88, 235);
+        }
+
+        .form .text{
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form a{
+            color: rgb(19, 88, 235);
+        }
+
+        .form a:hover{
+            text-decoration: underline;
+        }
+
+        .form .button{
+            margin-top: 35px;
+        }
+
+        .form .button input{
+            border: none;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            border-radius: 6px;
+            background-color: #4070f4;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button input:hover{
+            background-color: #265df2;
+        }
+
+        .form .login-signup{
+            margin-top: 30px;
+            text-align: center;
+        }
+
+
+
+
+
+
+        
+
+
+
+        
+
+        form div {
+            margin-bottom: 25px;
+        }
+
+         label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        /* button {
+            padding: 10px;
+            width: 100%;
+            background: #667eea;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            
+        }
+
+        button:hover {
+            background-color: #1722bb;
+        } */
+
+        .error {
+            color: #e53e3e;
+            font-size: 14px;
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .register-link a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        .forgot-password {
+            text-align: right;
+            margin-top: 10px;
+        }
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .forgot-password a:hover {
+            text-decoration: underline;
+        } */
+
+    </style>
 </head>
 <body>
 
-    <header>
-        <h1>Welcome to Our Site</h1>
-    </header>
+     <div class="container"> 
+        <div class="form">
+            <div class="form login">
+                <span class="title">LOGIN</span>
 
+                <form action="#">
 
-    <div class="container">
-            <!-- Toggle between Register and Login -->
-        <div class="form-toggle">
-            <a href="registration.html" class="toggle-link" id="showRegisterLink">Register</a>
-            <a href="login.html" class="toggle-link" id="showLoginLink">Login</a>
+                    <div class="input-field">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" name="loginEmail" required>
+                        <small class="error" id="loginEmailError"></small>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" name="loginPassword" required>
+                        <i class="uil uil-eye-slash showHidePw"></i>
+                        <small class="error" id="loginPasswordError"></small>
+                    </div>
+
+                    <div class="check-test">
+                        <div class="checkbox-content">
+                            <input type="checkbox" id="logCheck">
+                            <label for="logCheck" class="text">Remember me</label>
+                        </div>
+                    </div>
+
+                    <a href="#" class="text">Forgot password?</a>
+
+                    <div class="input-field button">
+                        <input type="button" value="Login Now">
+                    </div>
+                
+            </form>
+
+            <div class="Login-signup">
+                <span class="text">Not a member?
+                    <a href="#" class="text signup-text">Singup now</a>
+                </span>
+            </div>
+
+        
+            
+
+            </div>
         </div>
+        
 
     </div>
 
-    <script src="js/script.js"></script>
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            const loginEmail = document.getElementById('loginEmail');
+            const loginPassword = document.getElementById('loginPassword');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginEmailError = document.getElementById('loginEmailError');
+            const loginPasswordError = document.getElementById('loginPasswordError');
 
+            function isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            function validateForm() {
+                let isValid = true;
+
+                if (!isValidEmail(loginEmail.value)) {
+                    loginEmailError.textContent = 'Please enter a valid email address';
+                    isValid = false;
+                } else {
+                    loginEmailError.textContent = '';
+                }
+
+                if (loginPassword.value.length < 8) {
+                    loginPasswordError.textContent = 'Password must be at least 8 characters long';
+                    isValid = false;
+                } else {
+                    loginPasswordError.textContent = '';
+                }
+
+                loginBtn.disabled = !isValid;
+                return isValid;
+            }
+
+            loginEmail.addEventListener('input', validateForm);
+            loginPassword.addEventListener('input', validateForm);
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (validateForm()) {
+                    alert('Login successful!');
+                    // Here you would typically send the login data to a server
+                }
+            });
+
+            validateForm();
+        });
+
+    </script> -->
 </body>
 </html>
