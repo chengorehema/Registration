@@ -12,49 +12,45 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-        *{
+        * {
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
             display: flex;
-            align-items: center;
             justify-content: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #78c3d6 0%, #b4699b 100%);
         }
 
         .container {
-            position: relative;
-            width: 100%;
-            max-width: 430px;
             background: #fff;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 100%;
+            padding: 25px;
             border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .container .form {
-            padding: 30px;
-        }
-
-        .container .form .title{
-            position: relative;
-            font-size: 27px;
+        .title {
+            font-size: 24px;
             font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
         }
 
-        .form .title::before {
-            content: "";
+        .title::before {
+            content: '';
             position: absolute;
             left: 0;
-            bottom: 0;
+            bottom: -5px;
             height: 3px;
             width: 30px;
-            background-color: rgb(19, 88, 235);
-            border-radius: 25px;
+            background-color: #4070f4;
         }
 
         .form .input-field {
@@ -62,10 +58,6 @@
             height: 50px;
             width: 100%;
             margin-top: 30px;
-            margin-bottom: 10px;
-            border: none;
-            outline: none;
-
         }
 
         .input-field input {
@@ -73,281 +65,271 @@
             width: 100%;
             height: 100%;
             padding: 0 35px;
-            border: none;
+            border: 1px solid #ddd;
             outline: none;
             font-size: 16px;
+            border-radius: 5px;
             transition: all 0.2s ease;
-
         }
 
-        .input-field input:is(:focus, :valid){
-            border-bottom-color: rgb(19, 88, 235);
+        .input-field input:focus {
+            border-color: #6e8efb;
         }
 
-
-
-        .input-field i{
+        .input-field i {
             position: absolute;
             top: 50%;
-            right: 10px;
             transform: translateY(-50%);
             color: #999;
             font-size: 18px;
             transition: all 0.2s ease;
-
         }
 
-        .input-field input:is(:focus, :valid) ~ i {
-            color: rgb(19, 88, 235);
+        .input-field i:first-child {
+            left: 10px;
         }
 
-
-        .input-field i.showHidePw{
-            right: 0;
+        .input-field i.showHidePw {
+            right: 10px;
             cursor: pointer;
-            padding: 10px;
+            color: rgb(21, 135, 228);
         }
 
-        .form .checkbox-text{
+        .checkbox-text {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-top: 20px;
         }
 
-        .checkbox-text .checkbox-content{
+        .checkbox-content {
             display: flex;
             align-items: center;
         }
 
-        .checkbox-content input{
-            margin: 0 8px -2px 4px;
-            accent-color: rgb(19, 88, 235);
+        .checkbox-content input {
+            margin-right: 10px;
+            accent-color: #6e8efb;
         }
 
-        .form .text{
-            color: #333;
+        .form a {
+            color: #6e8efb;
+            text-decoration: none;
             font-size: 14px;
         }
 
-        .form a{
-            color: rgb(19, 88, 235);
-        }
-
-        .form a:hover{
+        .form a:hover {
             text-decoration: underline;
         }
 
-        .form .button{
-            margin-top: 35px;
-        }
-
-        .form .button input{
+        .button input {
+            width: 100%;
+            padding: 15px;
             border: none;
             color: #fff;
             font-size: 17px;
             font-weight: 500;
             letter-spacing: 1px;
             border-radius: 6px;
-            background-color: #4070f4;
+            background-color: #6e8efb;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .button input:hover{
+        .button input:hover {
             background-color: #265df2;
         }
 
-        .form .login-signup{
+        .login-signup {
             margin-top: 30px;
             text-align: center;
         }
 
-
-
-
-
-
-        
-
-
-
-        
-
-        form div {
-            margin-bottom: 25px;
-        }
-
-         label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            border-color: #667eea;
-            outline: none;
-        }
-
-        /* button {
-            padding: 10px;
-            width: 100%;
-            background: #667eea;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            font-size: 16px;
-            
-        }
-
-        button:hover {
-            background-color: #1722bb;
-        } */
-
         .error {
-            color: #e53e3e;
+            color: #e74c3c;
             font-size: 14px;
+            margin-top: 5px;
+            display: block;
         }
-        .register-link {
-            text-align: center;
-            margin-top: 20px;
+
+        /* Responsive styles */
+         /* Responsive styles */
+         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .title {
+                font-size: 22px;
+            }
+
+            .input-field input {
+                padding: 0 30px;
+                font-size: 14px;
+            }
+
+            .button input {
+                height: 40px;
+                font-size: 14px;
+            }
+
+            .form a {
+                font-size: 13px;
+            }
         }
-        .register-link a {
-            color: #667eea;
-            text-decoration: none;
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 20px;
+            }
+
+            .input-field input {
+                padding: 0 25px;
+                font-size: 12px;
+            }
+
+            .button input {
+                height: 38px;
+                font-size: 12px;
+            }
+
+            .form a {
+                font-size: 12px;
+            }
+
+            .checkbox-text {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .checkbox-content {
+                margin-bottom: 10px;
+            }
         }
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-        .forgot-password {
-            text-align: right;
-            margin-top: 10px;
-        }
-        .forgot-password a {
-            color: #667eea;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .forgot-password a:hover {
-            text-decoration: underline;
-        } */
 
     </style>
 </head>
 <body>
-
-     <div class="container"> 
+    <div class="container"> 
         <div class="form">
             <div class="form login">
                 <span class="title">LOGIN</span>
 
-                <form action="#">
-
+                <form id="loginForm" action="#">
                     <div class="input-field">
-                        <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" name="loginEmail" required>
-                        <small class="error" id="loginEmailError"></small>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                        <i class="uil uil-envelope icon"></i>
                     </div>
-
+                    <span class="error" id="emailError"></span>
+                    
                     <div class="input-field">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" name="loginPassword" required>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <i class="uil uil-lock icon"></i>
                         <i class="uil uil-eye-slash showHidePw"></i>
-                        <small class="error" id="loginPasswordError"></small>
                     </div>
+                    <span class="error" id="passwordError"></span>
 
-                    <div class="check-test">
+                    <div class="checkbox-text">
                         <div class="checkbox-content">
                             <input type="checkbox" id="logCheck">
-                            <label for="logCheck" class="text">Remember me</label>
+                            <label for="logCheck">Remember me</label>
                         </div>
+                        <a href="#" class="text">Forgot password?</a>
                     </div>
-
-                    <a href="#" class="text">Forgot password?</a>
 
                     <div class="input-field button">
-                        <input type="button" value="Login Now">
+                        <input type="submit" value="Login Now">
                     </div>
-                
-            </form>
+                </form>
 
-            <div class="Login-signup">
-                <span class="text">Not a member?
-                    <a href="#" class="text signup-text">Singup now</a>
-                </span>
-            </div>
-
-        
-            
-
+                <div class="login-signup">
+                    <span class="text">Not a member?
+                        <a href="registration.html" class="text signup-link">Signup now</a>
+                    </span>
+                </div>
             </div>
         </div>
-        
-
     </div>
 
-    <!-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('loginForm');
-            const loginEmail = document.getElementById('loginEmail');
-            const loginPassword = document.getElementById('loginPassword');
-            const loginBtn = document.getElementById('loginBtn');
-            const loginEmailError = document.getElementById('loginEmailError');
-            const loginPasswordError = document.getElementById('loginPasswordError');
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('loginForm');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
 
-            function isValidEmail(email) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-            }
+        const pwShowHide = document.querySelectorAll(".showHidePw");
+        const pwFields = document.querySelectorAll("input[type='password']");
 
-            function validateForm() {
-                let isValid = true;
-
-                if (!isValidEmail(loginEmail.value)) {
-                    loginEmailError.textContent = 'Please enter a valid email address';
-                    isValid = false;
-                } else {
-                    loginEmailError.textContent = '';
-                }
-
-                if (loginPassword.value.length < 8) {
-                    loginPasswordError.textContent = 'Password must be at least 8 characters long';
-                    isValid = false;
-                } else {
-                    loginPasswordError.textContent = '';
-                }
-
-                loginBtn.disabled = !isValid;
-                return isValid;
-            }
-
-            loginEmail.addEventListener('input', validateForm);
-            loginPassword.addEventListener('input', validateForm);
-
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                if (validateForm()) {
-                    alert('Login successful!');
-                    // Here you would typically send the login data to a server
-                }
+        // Toggle password visibility
+        pwShowHide.forEach(eyeIcon => {
+            eyeIcon.addEventListener("click", () => {
+                pwFields.forEach(pwField => {
+                    if(pwField.type === "password") {
+                        pwField.type = "text";
+                        pwShowHide.forEach(icon => {
+                            icon.classList.replace("uil-eye-slash", "uil-eye");
+                        });
+                    } else {
+                        pwField.type = "password";
+                        pwShowHide.forEach(icon => {
+                            icon.classList.replace("uil-eye", "uil-eye-slash");
+                        });
+                    }
+                });
             });
-
-            validateForm();
         });
 
-    </script> -->
+        // Validation functions
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function isValidPassword(password) {
+            return password.length >= 8;
+        }
+
+        function validateForm() {
+            let isValid = true;
+
+            // Email validation
+            if (!isValidEmail(email.value)) {
+                emailError.textContent = 'Please enter a valid email address';
+                isValid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            // Password validation
+            if (!isValidPassword(password.value)) {
+                passwordError.textContent = 'Password must be at least 8 characters long';
+                isValid = false;
+            } else {
+                passwordError.textContent = '';
+            }
+
+            return isValid;
+        }
+
+        // Add input event listeners for real-time validation
+        email.addEventListener('input', validateForm);
+        password.addEventListener('input', validateForm);
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm()) {
+                alert('Login successful!');
+                // Here you would typically send the form data to a server for authentication
+            }
+        });
+    });
+    </script>
 </body>
 </html>

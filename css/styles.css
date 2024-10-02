@@ -1,4 +1,4 @@
-/* General body styling */
+/* General body styling
 
 * {
     margin: 0;
@@ -19,7 +19,7 @@ body {
 }
 
 /* Container styling */
-.container {
+/* .container {
     background-color: #e6e1e1;
     width: 100%;
     max-width: 400px;
@@ -65,15 +65,24 @@ h1 {
 .toggle-link:hover {
     background-color: #313030;
     color: #fff;
-}
+} *
 
 /* Responsive design */
-@media (max-width: 480px) {
+ @media (max-width: 480px) {
     .container {
         width: 95%;
     }
 
-    h1 {
-        font-size: 2em;
+
+
+    .form-toggle {
+        flex-direction: column;
+    }
+
+    .toggle-link {
+        margin-bottom: 10px;
+    }
+    .toggle-link:last-child {
+        margin-bottom: 0;
     }
 }
